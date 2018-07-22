@@ -5,6 +5,7 @@ const initialState = {
 }
 
 const reducer = (state= initialState, action) => {
+    console.log('counter reducer', action);
     switch( action.type ){
         case actionTypes.INCREMENT:
             return {

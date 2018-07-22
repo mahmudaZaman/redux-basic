@@ -5,6 +5,7 @@ const initialState = {
 }
 
 const reducer = (state= initialState, action) => {
+    console.log('result reducer', action);
     switch( action.type ){
         case actionTypes.STORE_RESULT:
             return {
