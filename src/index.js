@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import counterReducer from './store/reducers/counter';
 import resultReducer from './store/reducers/result';
@@ -13,18 +14,18 @@ const rootReducer = combineReducers({
     res: resultReducer
 })
 
-// const logger = store => {
-//     return next => {
-//         return action => {
-//             console.log('middleware', action);
-//             const result = next(action);
-//             console.log('middleware', store.getState());
-//             return result;
-//         }
-//     }
-// }
+const logger = store => {
+    return next => {
+        return action => {
+            console.log('middleware', action);
+            const result = next(action);
+            console.log('middleware', store.getState());
+            return result;
+        }
+    }
+}
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
